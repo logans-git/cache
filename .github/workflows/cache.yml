@@ -9,8 +9,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: prime-cache-1d18359
+      - name: Create dummy deps directory
+        run: |
+          mkdir -p ~/.cache/mydeps
+          echo "hello" > ~/.cache/mydeps/file.txt
+
+      - name: Cache dependencies
+        id: cache
         uses: actions/cache@v4
         with:
           path: ~/.cache/mydeps
           key: cache-1d18359
+
+      - name: prime-cache-1d18359
+        run: "Cache result: ${{ steps.cache.outputs.cache-hit }}"
