@@ -1,25 +1,20 @@
-name: Cache Workflow
+name: Dependency Caching Challenge
 
-on:
-  push:
-  workflow_dispatch:
+on: [push] # Run this every time I push code
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Create dummy deps directory
-        run: |
-          mkdir -p ~/.cache/mydeps
-          echo "hello" > ~/.cache/mydeps/file.txt
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Cache dependencies
-        id: cache
+        id: cache-step # We give it an ID so we can check it later
         uses: actions/cache@v4
         with:
-          path: ~/.cache/mydeps
-          key: cache-1d18359
+          path: ~/dummy-dependencies # The folder we want to "remember"
+          key: cache-1d18359 # The specific ID required by your assignment
 
       - name: prime-cache-1d18359
-        run: "Cache result: ${{ steps.cache.outputs.cache-hit }}"
+        run: echo "Cache hit? ${{ steps.cache-step.outputs.cache-hit }}"
