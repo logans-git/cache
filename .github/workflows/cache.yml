@@ -1,4 +1,4 @@
-name: Cache Example
+name: Cache Workflow
 
 on:
   push:
@@ -9,15 +9,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Cache dependencies
-        id: cache-step
+      - name: prime-cache-1d18359
         uses: actions/cache@v4
         with:
           path: ~/.cache/mydeps
           key: cache-1d18359
-
-      - name: prime-cache-1d18359
-        run: echo 'Cache result: ${{ steps.cache-step.outputs.cache-hit }}'
